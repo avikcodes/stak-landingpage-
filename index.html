@@ -165,7 +165,19 @@
     .hero {
       padding: var(--space-lg) 0 var(--space-lg);
       text-align: center;
-      background: var(--bg);
+      background: linear-gradient(180deg, var(--bg) 0%, #FDF8F3 100%);
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(232,123,74,0.06) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .hero h1 {
@@ -198,6 +210,140 @@
     .hero-visual {
       margin-top: 3rem;
       position: relative;
+    }
+
+    .content-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding: 2rem 0;
+    }
+
+    .flow-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      min-width: 180px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .flow-card-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .flow-line {
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      margin-bottom: 0.65rem;
+    }
+
+    .flow-line:last-child {
+      margin-bottom: 0;
+      width: 70%;
+    }
+
+    .flow-line.short {
+      width: 50%;
+    }
+
+    .flow-line.medium {
+      width: 80%;
+    }
+
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent);
+    }
+
+    .flow-arrow-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: flowPulse 1.2s ease-in-out infinite;
+    }
+
+    .flow-arrow-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .flow-arrow-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes flowPulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .flow-outputs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .flow-output-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      min-width: 160px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      opacity: 0;
+      animation: flowSlideIn 0.4s ease forwards;
+      animation-fill-mode: backwards;
+    }
+
+    .flow-output-card:nth-child(1) { animation-delay: 0.2s; }
+    .flow-output-card:nth-child(2) { animation-delay: 0.35s; margin-left: 12px; }
+    .flow-output-card:nth-child(3) { animation-delay: 0.5s; margin-left: 24px; }
+
+    @keyframes flowSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .flow-output-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: white;
+      background: var(--text-muted);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .flow-output-lines {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .flow-output-line {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .flow-output-line.primary {
+      background: var(--text-muted);
     }
 
     .hero-illustration {
@@ -669,7 +815,7 @@
         <a href="#pricing">Pricing</a>
         <a href="#demo">Demo</a>
       </div>
-      <a href="#" class="btn btn-primary nav-cta">Start Free</a>
+      <a href="https://stak-app.vercel.app/login" class="btn btn-primary nav-cta">Start Free</a>
     </div>
   </nav>
 
@@ -679,47 +825,50 @@
       <h1>Write Once.<br>Publish Everywhere.</h1>
       <p class="hero-subtitle">Stak transforms your content into ready-to-post Twitter threads, LinkedIn posts, and more — instantly.</p>
       <div class="hero-cta">
-        <a href="#" class="btn btn-primary">Start Free</a>
+        <a href="https://stak-app.vercel.app/login" class="btn btn-primary">Start Free</a>
         <a href="#demo" class="btn btn-secondary">Watch Demo</a>
       </div>
       <p class="hero-trust">Built for creators, founders, indie hackers</p>
       <div class="hero-visual">
-        <svg class="hero-illustration" viewBox="0 0 680 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="20" width="640" height="300" rx="12" fill="#FFFFFF" stroke="#E5DED6" stroke-width="2"/>
-          <rect x="40" y="50" width="280" height="120" rx="8" fill="#FAFBFC" stroke="#E5DED6"/>
-          <text x="60" y="80" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="#E87B4A">Your Content</text>
-          <rect x="60" y="100" width="240" height="8" rx="4" fill="#E5DED6"/>
-          <rect x="60" y="116" width="200" height="8" rx="4" fill="#E5DED6"/>
-          <rect x="60" y="132" width="220" height="8" rx="4" fill="#E5DED6"/>
-          <circle cx="300" cy="110" r="24" fill="#FCE8DF"/>
-          <text x="300" y="108" font-family="Space Grotesk, sans-serif" font-size="24" font-weight="700" fill="#E87B4A" text-anchor="middle">→</text>
-          <rect x="360" y="50" width="280" height="120" rx="8" fill="#F5EDE4" stroke="#E5DED6"/>
-          <text x="380" y="75" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600" fill="#1DA1F2">Twitter</text>
-          <rect x="380" y="90" width="80" height="6" rx="3" fill="#1DA1F2"/>
-          <rect x="380" y="102" width="120" height="6" rx="3" fill="#6B6560"/>
-          <rect x="380" y="114" width="100" height="6" rx="3" fill="#6B6560"/>
-          <rect x="380" y="126" width="90" height="6" rx="3" fill="#6B6560"/>
-          <rect x="380" y="138" width="110" height="6" rx="3" fill="#6B6560"/>
-          <text x="380" y="158" font-family="Outfit, sans-serif" font-size="9" fill="#6B6560">3 more →</text>
-          <rect x="40" y="190" width="170" height="110" rx="8" fill="#E8E3FE" stroke="#D8CDF0"/>
-          <text x="55" y="215" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600" fill="#0A66C2">LinkedIn</text>
-          <rect x="55" y="228" width="140" height="6" rx="3" fill="#0A66C2"/>
-          <rect x="55" y="240" width="120" height="6" rx="3" fill="#6B6560"/>
-          <rect x="55" y="252" width="130" height="6" rx="3" fill="#6B6560"/>
-          <rect x="55" y="264" width="80" height="6" rx="3" fill="#6B6560"/>
-          <rect x="230" y="190" width="170" height="110" rx="8" fill="#FEE8E3" stroke="#F0C8B0"/>
-          <text x="245" y="215" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600" fill="#FF4500">Reddit</text>
-          <rect x="245" y="228" width="100" height="6" rx="3" fill="#FF4500"/>
-          <rect x="245" y="240" width="140" height="6" rx="3" fill="#6B6560"/>
-          <rect x="245" y="252" width="120" height="6" rx="3" fill="#6B6560"/>
-          <rect x="245" y="264" width="90" height="6" rx="3" fill="#6B6560"/>
-          <rect x="420" y="190" width="220" height="110" rx="8" fill="#E3FEE8" stroke="#C0E8C8"/>
-          <text x="440" y="215" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600" fill="#2D2A26">Newsletter</text>
-          <rect x="440" y="228" width="160" height="6" rx="3" fill="#2D2A26"/>
-          <rect x="440" y="240" width="180" height="6" rx="3" fill="#6B6560"/>
-          <rect x="440" y="252" width="150" height="6" rx="3" fill="#6B6560"/>
-          <rect x="440" y="264" width="100" height="6" rx="3" fill="#6B6560"/>
-        </svg>
+        <div class="content-flow">
+          <div class="flow-card">
+            <div class="flow-card-title">Your Content</div>
+            <div class="flow-line medium"></div>
+            <div class="flow-line"></div>
+            <div class="flow-line short"></div>
+          </div>
+          <div class="flow-arrow">
+            <span class="flow-arrow-dot"></span>
+            <span class="flow-arrow-dot"></span>
+            <span class="flow-arrow-dot"></span>
+          </div>
+          <div class="flow-outputs">
+            <div class="flow-output-card">
+              <span class="flow-output-label">Twitter</span>
+              <div class="flow-output-lines">
+                <div class="flow-output-line primary"></div>
+                <div class="flow-output-line"></div>
+                <div class="flow-output-line"></div>
+              </div>
+            </div>
+            <div class="flow-output-card">
+              <span class="flow-output-label">LinkedIn</span>
+              <div class="flow-output-lines">
+                <div class="flow-output-line primary"></div>
+                <div class="flow-output-line"></div>
+                <div class="flow-output-line"></div>
+              </div>
+            </div>
+            <div class="flow-output-card">
+              <span class="flow-output-label">Reddit</span>
+              <div class="flow-output-lines">
+                <div class="flow-output-line primary"></div>
+                <div class="flow-output-line"></div>
+                <div class="flow-output-line"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -908,7 +1057,7 @@
             <li>All platform formats</li>
             <li>Priority support</li>
           </ul>
-          <a href="#" class="btn btn-primary">Start Free</a>
+          <a href="https://stak-app.vercel.app/login" class="btn btn-primary">Start Free</a>
         </div>
       </div>
     </div>
@@ -918,7 +1067,7 @@
   <section class="cta-section">
     <div class="container">
       <h2>Start creating faster today</h2>
-      <a href="#" class="btn">Start Free</a>
+      <a href="https://stak-app.vercel.app/login" class="btn">Start Free</a>
     </div>
   </section>
 
