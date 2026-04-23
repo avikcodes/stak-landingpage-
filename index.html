@@ -3,39 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stak - Turn One Piece of Content into 10+ Platform-Ready Posts</title>
+  <title>Stak | Turn One Idea into 10+ High-Performing Posts</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
+    :root {
+      --bg: #f5f3ee;
+      --bg-soft: #faf8f4;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-strong: #ffffff;
+      --line: rgba(30, 34, 31, 0.1);
+      --line-strong: rgba(30, 34, 31, 0.16);
+      --text: #171a18;
+      --muted: #717771;
+      --muted-soft: #969b96;
+      --shadow: 0 24px 70px rgba(20, 24, 22, 0.07);
+      --shadow-soft: 0 14px 36px rgba(20, 24, 22, 0.045);
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+      --container: 1160px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-
-    :root {
-      --bg: #FDF8F3;
-      --bg-alt: #F5EDE4;
-      --text: #2D2A26;
-      --text-muted: #6B6560;
-      --accent: #E87B4A;
-      --accent-hover: #D6683A;
-      --accent-light: #FCE8DF;
-      --card-bg: #FFFFFF;
-      --border: #E5DED6;
-      --twitter: #1DA1F2;
-      --linkedin: #0A66C2;
-      --reddit: #FF4500;
-      --font-display: 'Space Grotesk', sans-serif;
-      --font-body: 'Outfit', sans-serif;
-      --radius: 12px;
-      --radius-sm: 8px;
-      --container: 1100px;
-      --space-sm: 1rem;
-      --space-md: 2rem;
-      --space-lg: 4rem;
-      --space-xl: 6rem;
     }
 
     html {
@@ -43,17 +38,13 @@
     }
 
     body {
-      font-family: var(--font-body);
-      background: var(--bg);
+      font-family: "Manrope", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 34%),
+        linear-gradient(180deg, #f8f6f1 0%, #f3f1eb 52%, #efede7 100%);
       color: var(--text);
       line-height: 1.6;
-      font-size: 17px;
-    }
-
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 var(--space-sm);
+      min-height: 100vh;
     }
 
     a {
@@ -61,1140 +52,1436 @@
       text-decoration: none;
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
+    button {
+      font: inherit;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.85rem 1.75rem;
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: var(--radius-sm);
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
+    .container {
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: white;
+    .page-shell {
+      position: relative;
+      overflow: clip;
     }
 
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.45);
+      filter: blur(32px);
+      z-index: -1;
     }
 
-    .btn-secondary {
-      background: var(--card-bg);
-      color: var(--text);
-      border: 2px solid var(--border);
+    .page-shell::before {
+      top: -120px;
+      right: -80px;
     }
 
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    .page-shell::after {
+      left: -120px;
+      top: 540px;
     }
 
-    h1, h2, h3, h4 {
-      font-family: var(--font-display);
-      font-weight: 700;
-      line-height: 1.15;
-    }
-
-    .section {
-      padding: var(--space-lg) 0;
-    }
-
-    /* Navbar */
-    .navbar {
-      padding: 1.25rem 0;
+    .site-header {
       position: sticky;
       top: 0;
-      background: rgba(253, 248, 243, 0.92);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-      border-bottom: 1px solid var(--border);
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(245, 243, 238, 0.72);
+      border-bottom: 1px solid rgba(23, 26, 24, 0.06);
     }
 
-    .navbar .container {
+    .nav {
+      min-height: 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 24px;
     }
 
-    .logo {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text);
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #171a18 0%, #3a413d 100%);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.92rem;
     }
 
     .nav-links {
       display: none;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .nav-links a {
-      font-weight: 500;
-      color: var(--text-muted);
-      transition: color 0.2s;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 0.96rem;
+      font-weight: 600;
     }
 
     .nav-links a:hover {
       color: var(--text);
     }
 
-    .nav-cta {
-      display: none;
-    }
-
-    @media (min-width: 768px) {
-      .nav-links, .nav-cta {
-        display: flex;
-      }
-    }
-
-    /* Hero */
-    .hero {
-      padding: var(--space-lg) 0 var(--space-lg);
-      text-align: center;
-      background: var(--bg);
-      position: relative;
-    }
-
-    .hero h1 {
-      opacity: 0;
-      animation: fadeInUp 0.5s ease forwards;
-    }
-
-    .hero-subtitle {
-      opacity: 0;
-      animation: fadeInUp 0.5s ease forwards;
-      animation-delay: 0.15s;
-    }
-
-    .hero-cta {
-      opacity: 0;
-      animation: fadeInUp 0.5s ease forwards;
-      animation-delay: 0.3s;
-    }
-
-    .hero-trust {
-      opacity: 0;
-      animation: fadeInUp 0.5s ease forwards;
-      animation-delay: 0.45s;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.4rem, 7vw, 3.5rem);
-      margin-bottom: 1.25rem;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-      color: var(--text-muted);
-      max-width: 580px;
-      margin: 0 auto 2rem;
-    }
-
-    .hero-cta {
+    .btn-row {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
+      align-items: center;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 1rem;
+      font-weight: 700;
+      transition:
+        opacity 0.5s ease-out,
+        transform 0.5s ease-out,
+        box-shadow 0.5s ease-out,
+        background-color 0.5s ease-out,
+        border-color 0.5s ease-out;
+      will-change: transform, box-shadow;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: #121513;
+      color: #fff;
+      box-shadow: 0 16px 32px rgba(18, 21, 19, 0.16);
+    }
+
+    .btn-primary:hover {
+      background: #1b1f1d;
+      box-shadow: 0 20px 36px rgba(18, 21, 19, 0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.88);
+      border-color: var(--line);
+      color: var(--text);
+      box-shadow: 0 10px 22px rgba(20, 24, 22, 0.04);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .section {
+      padding: 132px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #69706a;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin: 0 auto 64px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2.35rem, 5.2vw, 3.95rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      margin-top: 20px;
+    }
+
+    .section-heading p {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    .hero {
+      padding: 56px 0 116px;
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 64px;
+      border-radius: 36px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.58) 100%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -100px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.86), transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-layout {
+      display: grid;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 690px;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(3.4rem, 7.8vw, 6.15rem);
+      line-height: 0.91;
+      letter-spacing: -0.07em;
+      max-width: 11ch;
+    }
+
+    .hero-copy h1 span {
+      display: block;
+      font-family: "Instrument Serif", serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-copy p {
+      margin-top: 24px;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2.15vw, 1.24rem);
+    }
+
+    .hero-actions {
+      margin-top: 34px;
     }
 
     .hero-trust {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* Problem Section */
-    .problem {
-      background: var(--bg-alt);
-      padding: var(--space-xl) 0;
-    }
-
-    .section-title {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      text-align: center;
-      margin-bottom: var(--space-lg);
-    }
-
-    .problem-grid {
-      display: grid;
-      gap: var(--space-md);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .problem-card {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-    }
-
-    .problem-card h3 {
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .problem-card .icon {
-      width: 28px;
-      height: 28px;
-      background: var(--accent-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .problem-card p {
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-    }
-
-    /* Solution Section */
-    .solution {
-      padding: var(--space-xl) 0;
-    }
-
-    .solution-grid {
-      display: grid;
-      gap: var(--space-md);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .solution-card {
-      background: var(--accent-light);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      border: 2px solid var(--accent);
-    }
-
-    .solution-card h3 {
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .solution-card .check {
-      width: 24px;
-      height: 24px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
+      margin-top: 22px;
+      color: var(--muted-soft);
+      font-size: 0.96rem;
       font-weight: 700;
-      flex-shrink: 0;
     }
 
-    .solution-card p {
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-    }
-
-    /* Features Section */
-    .features {
-      background: var(--bg-alt);
-      padding: var(--space-xl) 0;
-    }
-
-    .features-grid {
-      display: grid;
-      gap: 1.25rem;
-      grid-template-columns: 1fr;
-    }
-
-    @media (min-width: 520px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 768px) {
-      .features-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .feature-card {
-      background: var(--card-bg);
-      padding: 1.75rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-      background: var(--accent-light);
-      color: var(--accent);
-    }
-
-    .feature-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .feature-card p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-
-    /* How It Works */
-    .how-it-works {
-      padding: var(--space-xl) 0;
-    }
-
-    .steps {
-      display: grid;
-      gap: 2rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    @media (min-width: 768px) {
-      .steps {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .step {
-      text-align: center;
-    }
-
-    .step-number {
-      width: 48px;
-      height: 48px;
-      background: var(--accent);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.25rem;
-      margin: 0 auto 1rem;
-    }
-
-    .step h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .step p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* Demo Video */
-    .demo-video {
-      background: var(--bg);
-      padding: var(--space-xl) 0;
-      text-align: center;
-    }
-
-    .section-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-top: -0.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .video-wrapper {
-      max-width: 800px;
-      margin: 0 auto;
+    .hero-visual {
       position: relative;
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: #2D2A26;
-      aspect-ratio: 16/9;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow-soft);
     }
 
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .video-placeholder {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #2D2A26 0%, #4a4540 100%);
-      color: white;
-    }
-
-    .video-placeholder .play-btn {
-      width: 72px;
-      height: 72px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .video-placeholder .play-btn:hover {
-      transform: scale(1.1);
-    }
-
-    .video-caption {
-      margin-top: 1.25rem;
-      color: var(--text-muted);
-      font-size: 1rem;
-    }
-
-    .demo-cta {
-      margin-top: 1.5rem;
-    }
-
-    /* Pricing */
-    .pricing {
-      padding: var(--space-xl) 0;
-    }
-
-    .pricing-grid {
+    .hero-stack {
       display: grid;
-      gap: 1.5rem;
-      max-width: 600px;
-      margin: 0 auto;
+      gap: 14px;
     }
 
-    @media (min-width: 520px) {
-      .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .mini-card {
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: var(--surface-strong);
+      padding: 20px 20px 18px;
+      box-shadow: 0 14px 28px rgba(20, 24, 22, 0.035);
+    }
+
+    .mini-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 11px;
+      border-radius: 999px;
+      background: #f1efe9;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .lines {
+      display: grid;
+      gap: 10px;
+    }
+
+    .line {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #171a18 0%, #535a55 100%);
+      opacity: 0.12;
+    }
+
+    .line.short {
+      width: 58%;
+    }
+
+    .line.mid {
+      width: 76%;
+    }
+
+    .hero-output-row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .output-mini {
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff 0%, #fbfaf7 100%);
+      padding: 16px;
+      box-shadow: 0 12px 24px rgba(20, 24, 22, 0.03);
+    }
+
+    .output-mini strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 0.84rem;
+      letter-spacing: -0.02em;
+    }
+
+    .problem-grid,
+    .solution-grid,
+    .why-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .pricing-section .section-heading {
+      margin-bottom: 48px;
+    }
+
+    .pricing-wrap {
+      display: flex;
+      justify-content: center;
     }
 
     .pricing-card {
-      background: var(--card-bg);
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      text-align: center;
+      width: min(100%, 480px);
+      padding: 34px;
+      border-radius: 30px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(251, 250, 247, 0.98) 100%);
+      box-shadow: 0 18px 42px rgba(20, 24, 22, 0.05);
+      text-align: left;
     }
 
-    .pricing-card.featured {
-      border-color: var(--accent);
-      position: relative;
-    }
-
-    .pricing-card.featured::before {
-      content: 'Most Popular';
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent);
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.35rem 1rem;
-      border-radius: 20px;
+    .pricing-plan {
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .pricing-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
+      margin-top: 12px;
+      font-size: 1.75rem;
+      line-height: 1.02;
+      letter-spacing: -0.05em;
     }
 
-    .pricing-card .price {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 1rem 0;
+    .pricing-amount {
+      margin-top: 18px;
+      font-size: 3rem;
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+      font-weight: 800;
+      color: var(--text);
     }
 
-    .pricing-card .price span {
+    .pricing-yearly {
+      margin-top: 10px;
+      color: var(--muted);
       font-size: 1rem;
-      color: var(--text-muted);
-      font-weight: 400;
+      font-weight: 600;
     }
 
-    .pricing-card ul {
+    .pricing-list {
       list-style: none;
-      text-align: left;
-      margin: 1.5rem 0;
+      display: grid;
+      gap: 16px;
+      margin-top: 28px;
+      padding: 0;
     }
 
-    .pricing-card li {
-      padding: 0.5rem 0;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .pricing-list li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 14px;
+      align-items: start;
+      color: var(--muted);
     }
 
-    .pricing-card li::before {
-      content: '✓';
-      color: var(--accent);
-      font-weight: 700;
+    .pricing-list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: #171a18;
+      opacity: 0.85;
     }
 
-    .pricing-card .btn {
-      width: 100%;
-    }
-
-    /* CTA Section */
-    .cta-section {
-      background: var(--accent);
-      padding: var(--space-xl) 0;
-      text-align: center;
-      color: white;
-    }
-
-    .cta-section h2 {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      margin-bottom: 1.5rem;
-    }
-
-    .cta-section .btn {
-      background: white;
-      color: var(--accent);
-    }
-
-    .cta-section .btn:hover {
-      background: var(--bg);
-      transform: translateY(-2px);
-    }
-
-    /* Footer */
-    .footer {
-      background: var(--bg-alt);
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-outer {
-      padding: 2rem 0;
-    }
-
-    .footer-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-
-    .footer-left {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .footer-legal {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .footer-legal a {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    .footer-legal a:hover {
+    .pricing-list strong {
+      display: block;
       color: var(--text);
-    }
-
-    .footer-center {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .footer-center a {
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .footer-center a:hover {
-      color: var(--text);
-    }
-
-    .footer-right {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .footer-copy {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes arrowMove {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(4px); }
-    }
-
-    /* Flow Demo Section */
-    .flow-demo {
-      padding: var(--space-xl) 0;
-      background: var(--bg);
-    }
-
-    .flow-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      text-align: center;
-      margin-bottom: 3rem;
+      font-size: 1rem;
       letter-spacing: -0.02em;
-      opacity: 0;
-      animation: fadeInUp 0.5s ease forwards;
     }
 
-    .flow-section {
-      display: flex;
+    .pricing-list span {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+
+    .pricing-card .btn-row {
+      margin-top: 30px;
+      justify-content: flex-start;
+    }
+
+    .list-card {
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .list-card strong {
+      display: block;
+      font-size: 1.12rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .list-card p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .problem-index,
+    .why-index {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: var(--muted-soft);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .solution-shell {
+      display: grid;
+      gap: 18px;
+      padding: 28px;
+      border-radius: 30px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(251, 250, 247, 0.92) 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .solution-grid .list-card {
+      background: #fff;
+    }
+
+    .flow-wrap {
+      padding: 34px;
+      border-radius: 32px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+    }
+
+    .flow-grid {
+      display: grid;
+      gap: 28px;
       align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
     }
 
     .flow-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem 2rem;
-      min-width: 200px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 26px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: var(--surface-strong);
+      box-shadow: var(--shadow-soft);
     }
 
-    .flow-card-title {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
+    .flow-label {
+      display: block;
+      margin-bottom: 16px;
+      color: var(--muted-soft);
+      font-size: 0.8rem;
+      font-weight: 800;
       letter-spacing: 0.08em;
-      margin-bottom: 1rem;
+      text-transform: uppercase;
     }
 
-    .flow-lines {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+    .flow-card h3 {
+      font-size: 1.42rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
     }
 
-    .flow-lines .flow-line {
-      height: 8px;
-      background: var(--border);
-      border-radius: 4px;
-      width: 100%;
+    .flow-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
-    .flow-lines .flow-line.short {
-      width: 60%;
+    .processing {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      color: var(--muted);
+      text-align: center;
     }
 
-    .flow-arrow {
-      color: var(--accent);
-      animation: arrowMove 1.2s ease-in-out infinite;
+    .processing-dots {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow-soft);
     }
 
-    .flow-outputs {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
+    .processing-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #555c57;
+      opacity: 0.22;
+      animation: dotFade 0.6s ease-out infinite;
+    }
+
+    .processing-dots span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .processing-dots span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .output-stack {
+      display: grid;
+      gap: 16px;
     }
 
     .output-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem 1.5rem;
-      min-width: 180px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      opacity: 0;
-      animation: slideIn 0.5s ease forwards;
-      animation-fill-mode: backwards;
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff 0%, #fbfaf7 100%);
+      box-shadow: 0 14px 30px rgba(20, 24, 22, 0.04);
     }
 
-    .output-label {
-      font-family: var(--font-display);
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: white;
-      background: var(--text-muted);
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      display: inline-block;
-      margin-bottom: 0.75rem;
-    }
-
-    .output-lines {
+    .output-card strong {
       display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .output-lines .output-line {
-      height: 6px;
-      background: var(--border);
-      border-radius: 3px;
-      width: 100%;
-    }
-
-    .output-lines .output-line:first-child {
-      background: var(--text-muted);
-    }
-
-    /* Why Stak Section */
-    .why-stak {
-      padding: var(--space-xl) 0;
-      background: var(--bg-alt);
-    }
-
-    .why-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      text-align: center;
-      margin-bottom: 3rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.98rem;
       letter-spacing: -0.02em;
     }
 
+    .output-card strong span {
+      font-size: 0.75rem;
+      color: var(--muted-soft);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .why-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .demo-section .section-heading {
+      max-width: 720px;
+    }
+
+    .demo-wrap {
       max-width: 800px;
       margin: 0 auto;
     }
 
-    .why-item {
-      text-align: center;
-      padding: 1.5rem;
+    .demo-video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.36) 0%, rgba(255, 255, 255, 0.08) 100%),
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.2), transparent 40%),
+        linear-gradient(135deg, #d8d4cb 0%, #c4beb2 100%);
+      box-shadow: var(--shadow);
+      transform: scale(0.98);
+      transition:
+        opacity 0.5s ease-out,
+        transform 0.5s ease-out;
     }
 
-    .why-bullet {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
+    .demo-video-frame.is-visible {
+      transform: scale(1);
     }
 
-    .why-item h3 {
-      font-family: var(--font-body);
-      font-size: 1.1rem;
-      font-weight: 500;
+    .demo-video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .demo-overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(180deg, rgba(20, 24, 22, 0.08) 0%, rgba(20, 24, 22, 0.18) 100%);
+      pointer-events: none;
+    }
+
+    .demo-play {
+      width: 82px;
+      height: 82px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 18px 32px rgba(20, 24, 22, 0.12);
+      display: grid;
+      place-items: center;
+      color: #171a18;
+      backdrop-filter: blur(10px);
+    }
+
+    .demo-play svg {
+      width: 24px;
+      height: 24px;
+      margin-left: 4px;
+    }
+
+    .demo-section .btn-row {
+      justify-content: center;
+      margin-top: 26px;
+    }
+
+    .why-grid .list-card {
+      transition:
+        transform 0.2s ease-out,
+        box-shadow 0.2s ease-out;
+    }
+
+    .why-grid .list-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(20, 24, 22, 0.07);
+    }
+
+    .why-grid .why-index,
+    .why-grid .list-card strong,
+    .why-grid .list-card p {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.5s ease-out,
+        transform 0.5s ease-out;
+    }
+
+    .why-grid .list-card.is-visible .why-index {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.05s;
+    }
+
+    .why-grid .list-card.is-visible strong {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.12s;
+    }
+
+    .why-grid .list-card.is-visible p {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.18s;
+    }
+
+    .comparison-section {
+      padding-top: 0;
+    }
+
+    .comparison-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .comparison-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .comparison-card {
+      padding: 32px;
+      border-radius: 28px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .comparison-card-muted {
+      background: linear-gradient(180deg, rgba(246, 244, 239, 0.95) 0%, rgba(240, 237, 231, 0.98) 100%);
+    }
+
+    .comparison-card-highlight {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 247, 242, 1) 100%);
+      box-shadow: 0 18px 40px rgba(20, 24, 22, 0.055);
+    }
+
+    .comparison-label {
+      display: inline-block;
+      color: var(--muted-soft);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .comparison-card h3 {
+      margin-top: 12px;
+      font-size: 1.7rem;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .comparison-list {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+      padding: 0;
+    }
+
+    .comparison-list li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 14px;
+      align-items: start;
+      color: var(--muted);
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        opacity 0.45s ease-out,
+        transform 0.45s ease-out;
+      transition-delay: var(--item-delay, 0s);
+    }
+
+    .comparison-card.is-visible .comparison-list li {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .comparison-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-top: 1px;
+    }
+
+    .comparison-card-muted .comparison-icon {
+      background: rgba(23, 26, 24, 0.07);
+      color: rgba(23, 26, 24, 0.65);
+    }
+
+    .comparison-card-highlight .comparison-icon {
+      background: rgba(23, 26, 24, 0.09);
       color: var(--text);
     }
 
-    /* Social Proof */
-    .social-proof {
-      padding: var(--space-lg) 0;
-      background: var(--bg);
+    .comparison-list span:last-child {
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .cta-panel {
+      padding: 68px 32px;
+      border-radius: 34px;
+      border: 1px solid rgba(23, 26, 24, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(249, 247, 242, 0.92) 100%);
+      box-shadow: var(--shadow);
       text-align: center;
     }
 
-    .social-proof p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      font-weight: 500;
+    .cta-panel h2 {
+      font-size: clamp(2.45rem, 5.4vw, 4.3rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      max-width: 10ch;
+      margin: 0 auto;
     }
 
-    /* Remove old animation styles */
-    .hero h1, .hero-subtitle, .hero-cta, .hero-trust {
-      animation: none;
+    .cta-panel .btn-row {
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .site-footer {
+      padding: 24px 0 40px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition:
+        opacity 0.5s ease-out,
+        transform 0.5s ease-out;
+      transition-delay: var(--reveal-delay, 0s);
+      will-change: opacity, transform;
+    }
+
+    .reveal.is-visible {
       opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes dotFade {
+      0%, 100% {
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 0.55;
+      }
+    }
+
+    @media (min-width: 860px) {
+      .nav-links {
+        display: flex;
+      }
+
+      .hero-layout {
+        grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+      }
+
+      .problem-grid,
+      .solution-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .flow-grid {
+        grid-template-columns: minmax(240px, 0.9fr) minmax(140px, 0.4fr) minmax(280px, 1fr);
+      }
+
+      .comparison-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 859px) {
+      .section {
+        padding: 96px 0;
+      }
+
+      .hero {
+        padding-bottom: 88px;
+      }
+
+      .hero-panel,
+      .cta-panel {
+        padding: 40px 26px;
+      }
+
+      .flow-wrap {
+        padding: 26px;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(var(--container), calc(100% - 24px));
+      }
+
+      .nav {
+        min-height: 72px;
+      }
+
+      .btn-row {
+        width: 100%;
+      }
+
+      .hero-actions .btn {
+        flex: 1 1 100%;
+      }
+
+      .hero-output-row {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        margin-bottom: 44px;
+      }
+
+      .flow-card,
+      .list-card {
+        padding: 22px;
+      }
+
+      .pricing-card {
+        padding: 28px 24px;
+      }
+
+      .demo-play {
+        width: 72px;
+        height: 72px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .reveal {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="container">
-      <a href="#" class="logo">Stak</a>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How it Works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#demo">Demo</a>
-      </div>
-      <a href="https://app.stak.co.in/" class="btn btn-primary nav-cta">Start Free</a>
-    </div>
-  </nav>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav">
+          <a href="#" class="brand" aria-label="Stak home">
+            <span class="brand-mark">S</span>
+            <span>Stak</span>
+          </a>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <h1>Turn One Idea into<br>10+ High-Performing Posts</h1>
-      <p class="hero-subtitle">Stak converts your content into platform-ready Twitter threads, LinkedIn posts, Reddit posts, and more — in seconds.</p>
-      <div class="hero-cta">
-        <a href="https://app.stak.co.in/" class="btn btn-primary">Start Free</a>
-        <a href="#demo" class="btn btn-secondary">Watch Demo</a>
-      </div>
-      <p class="hero-trust">No fluff. Just ready-to-post content.</p>
-    </div>
-  </section>
+          <div class="nav-links">
+            <a href="#problem">Problem</a>
+            <a href="#solution">Solution</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#why-stak">Why Stak</a>
+          </div>
 
-  <!-- Flow Demo Section -->
-  <section class="flow-demo">
-    <div class="container">
-      <h2 class="flow-title">From One Input → Multiple Outputs</h2>
-      <div class="flow-section">
-        <div class="flow-card">
-          <div class="flow-card-title">Your Content</div>
-          <div class="flow-lines">
-            <div class="flow-line"></div>
-            <div class="flow-line"></div>
-            <div class="flow-line"></div>
-            <div class="flow-line short"></div>
-          </div>
-        </div>
-        <div class="flow-arrow">
-          <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
-            <path d="M8 12H38M38 12L30 4M38 12L30 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="flow-outputs">
-          <div class="output-card" style="animation-delay: 0.2s;">
-            <span class="output-label">Twitter Thread</span>
-            <div class="output-lines">
-              <div class="output-line"></div>
-              <div class="output-line"></div>
-              <div class="output-line"></div>
-            </div>
-          </div>
-          <div class="output-card" style="animation-delay: 0.35s; margin-left: 16px;">
-            <span class="output-label">LinkedIn Post</span>
-            <div class="output-lines">
-              <div class="output-line"></div>
-              <div class="output-line"></div>
-              <div class="output-line"></div>
-            </div>
-          </div>
-          <div class="output-card" style="animation-delay: 0.5s; margin-left: 32px;">
-            <span class="output-label">Reddit Post</span>
-            <div class="output-lines">
-              <div class="output-line"></div>
-              <div class="output-line"></div>
-              <div class="output-line"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Stak Section -->
-  <section class="why-stak">
-    <div class="container">
-      <h2 class="why-title">Why creators use Stak</h2>
-      <div class="why-grid">
-        <div class="why-item">
-          <div class="why-bullet">01</div>
-          <h3>Write once, publish everywhere</h3>
-        </div>
-        <div class="why-item">
-          <div class="why-bullet">02</div>
-          <h3>Platform-specific formatting done for you</h3>
-        </div>
-        <div class="why-item">
-          <div class="why-bullet">03</div>
-          <h3>Save hours every day</h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social Proof -->
-  <section class="social-proof">
-    <div class="container">
-      <p>Used by creators building in public</p>
-    </div>
-  </section>
-
-  <!-- Problem Section -->
-  <section class="problem">
-    <div class="container">
-      <h2 class="section-title">Creating content everywhere is exhausting</h2>
-      <div class="problem-grid">
-        <div class="problem-card">
-          <h3>
-            <span class="icon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E87B4A" stroke-width="3"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            </span>
-            Writing for every platform takes hours
-          </h3>
-          <p>Manually adapting one piece of content for Twitter, LinkedIn, Reddit, newsletters, and more eats up your entire day.</p>
-        </div>
-        <div class="problem-card">
-          <h3>
-            <span class="icon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E87B4A" stroke-width="3"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
-            </span>
-            Each platform needs a different style
-          </h3>
-          <p>Twitter wants threads. LinkedIn wants professional tone. Reddit wants casual. The formatting never ends.</p>
-        </div>
-        <div class="problem-card">
-          <h3>
-            <span class="icon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E87B4A" stroke-width="3"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </span>
-            Consistency is hard
-          </h3>
-          <p>Staying active across all platforms while maintaining quality is nearly impossible to sustain.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Solution Section -->
-  <section class="solution">
-    <div class="container">
-      <h2 class="section-title">Stak does the heavy lifting</h2>
-      <div class="solution-grid">
-        <div class="solution-card">
-          <h3>
-            <span class="check">✓</span>
-            One input → multiple outputs
-          </h3>
-          <p>Paste your blog post, podcast notes, or tweet draft once. Stak generates platform-specific versions automatically.</p>
-        </div>
-        <div class="solution-card">
-          <h3>
-            <span class="check">✓</span>
-            Platform-specific formatting
-          </h3>
-          <p>Every output is formatted with the right length, tone, and structure for each platform's best practices.</p>
-        </div>
-        <div class="solution-card">
-          <h3>
-            <span class="check">✓</span>
-            Ready-to-edit drafts
-          </h3>
-          <p>Get drafts you can polish and publish in minutes, not hours. You're always in control of the final output.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="features" id="features">
-    <div class="container">
-      <h2 class="section-title">Features</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <h3>AI Repurposing Engine</h3>
-          <p>Convert one piece of content into multiple formats instantly.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <h3>Platform Optimization</h3>
-          <p>Each output is tailored for Twitter, LinkedIn, Reddit, etc.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-          </div>
-          <h3>Queue Workflow</h3>
-          <p>Generate multiple drafts and manage them in a simple queue.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
-          </div>
-          <h3>Editable Drafts</h3>
-          <p>Review and tweak before publishing.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          </div>
-          <h3>Content History</h3>
-          <p>Access all your past generations anytime.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3>Fast Generation</h3>
-          <p>Get outputs in seconds, not hours.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works -->
-  <section class="how-it-works" id="how-it-works">
-    <div class="container">
-      <h2 class="section-title">How It Works</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Paste your content</h3>
-          <p>Drop in your blog post, tweet draft, or any content you want to repurpose.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Choose platforms</h3>
-          <p>Select where you want to post — Twitter, LinkedIn, Reddit, or all of them.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Generate & edit drafts</h3>
-          <p>Get ready-to-publish drafts in seconds. Edit, then post.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Demo Video Section -->
-  <section class="demo-video" id="demo">
-    <div class="container">
-      <h2 class="section-title">See Stak in Action</h2>
-      <p class="section-subtitle">Watch how one piece of content turns into multiple posts</p>
-      <div class="video-wrapper">
-        <div class="video-placeholder" onclick="this.style.display='none'; document.getElementById('demo-video-iframe').style.display='block';">
-          <div class="play-btn">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-        </div>
-        <iframe id="demo-video-iframe" style="display:none;" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-      </div>
-      <p class="video-caption">From one input → Twitter thread, LinkedIn post, Reddit post in seconds.</p>
-      <a href="#" class="btn btn-primary demo-cta">Try It Yourself</a>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section class="pricing" id="pricing">
-    <div class="container">
-      <h2 class="section-title">Simple, Transparent Pricing</h2>
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3>Free Plan</h3>
-          <div class="price">$0<span>/month</span></div>
-          <ul>
-            <li>10 generations per month</li>
-            <li>Basic platform outputs</li>
-            <li>7-day content history</li>
-          </ul>
-          <a href="#" class="btn btn-secondary">Get Started</a>
-        </div>
-        <div class="pricing-card featured">
-          <h3>Pro Plan</h3>
-          <div class="price">$15<span>/month</span></div>
-          <ul>
-            <li>Unlimited generations</li>
-            <li>Priority processing</li>
-            <li>Full content history</li>
-            <li>All platform formats</li>
-            <li>Priority support</li>
-          </ul>
           <a href="https://app.stak.co.in/" class="btn btn-primary">Start Free</a>
-        </div>
+        </nav>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <div class="container">
-      <h2>Start creating faster today</h2>
-      <a href="https://app.stak.co.in/" class="btn">Start Free</a>
-    </div>
-  </section>
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-panel reveal">
+            <div class="hero-layout">
+              <div class="hero-copy">
+                <span class="eyebrow reveal">Content Repurposing, Refined</span>
+                <h1 class="reveal" style="--reveal-delay: 0.1s;">Turn One Idea into <span>10+ High-Performing Posts</span></h1>
+                <p class="reveal" style="--reveal-delay: 0.2s;">Stak transforms your content into platform-ready Twitter threads, LinkedIn posts, Reddit posts, and more - instantly.</p>
+                <div class="btn-row hero-actions reveal" style="--reveal-delay: 0.3s;">
+                  <a href="https://app.stak.co.in/" class="btn btn-primary">Start Free</a>
+                  <a href="#demo" class="btn btn-secondary">Watch Demo</a>
+                </div>
+                <p class="hero-trust reveal" style="--reveal-delay: 0.4s;">No fluff. Just ready-to-post content.</p>
+              </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-outer">
-      <div class="container footer-container">
-        <div class="footer-left">
-          <a href="#" class="logo">Stak</a>
-          <div class="footer-legal">
+              <div class="hero-visual reveal" style="--reveal-delay: 0.15s;" aria-hidden="true">
+                <div class="hero-stack">
+                  <div class="mini-card">
+                    <div class="mini-card-top">
+                      <span>Your Content</span>
+                      <span class="pill">Source</span>
+                    </div>
+                    <div class="lines">
+                      <div class="line"></div>
+                      <div class="line mid"></div>
+                      <div class="line"></div>
+                      <div class="line short"></div>
+                    </div>
+                  </div>
+
+                  <div class="hero-output-row">
+                    <div class="output-mini">
+                      <strong>Twitter Thread</strong>
+                      <div class="lines">
+                        <div class="line mid"></div>
+                        <div class="line"></div>
+                        <div class="line short"></div>
+                      </div>
+                    </div>
+                    <div class="output-mini">
+                      <strong>LinkedIn Post</strong>
+                      <div class="lines">
+                        <div class="line"></div>
+                        <div class="line mid"></div>
+                        <div class="line short"></div>
+                      </div>
+                    </div>
+                    <div class="output-mini">
+                      <strong>Reddit Post</strong>
+                      <div class="lines">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line short"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="problem">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">The Problem</span>
+            <h2 class="reveal" style="--reveal-delay: 0.1s;">Creating content everywhere is slow</h2>
+          </div>
+
+          <div class="problem-grid">
+            <article class="list-card reveal" style="--reveal-delay: 0.08s;">
+              <span class="problem-index">01</span>
+              <strong>Writing for each platform takes hours</strong>
+              <p>One solid idea turns into a long manual rewrite session when every channel needs its own version.</p>
+            </article>
+
+            <article class="list-card reveal" style="--reveal-delay: 0.18s;">
+              <span class="problem-index">02</span>
+              <strong>Every platform has different formats</strong>
+              <p>Threads, longer posts, punchier intros, community context, and formatting quirks keep slowing the process down.</p>
+            </article>
+
+            <article class="list-card reveal" style="--reveal-delay: 0.28s;">
+              <span class="problem-index">03</span>
+              <strong>Consistency is hard to maintain</strong>
+              <p>Publishing regularly across channels is difficult when each post starts from scratch every time.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="solution">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">The Solution</span>
+            <h2 class="reveal" style="--reveal-delay: 0.1s;">Stak does it in seconds</h2>
+            <p class="reveal" style="--reveal-delay: 0.2s;">Paste once, generate across channels, and start from drafts that already match the platform you are publishing on.</p>
+          </div>
+
+          <div class="solution-shell reveal">
+            <div class="solution-grid">
+              <article class="list-card reveal" style="--reveal-delay: 0.08s;">
+                <strong>One input - multiple outputs</strong>
+                <p>Drop in one idea, note, or draft and instantly get multiple post variations back.</p>
+              </article>
+
+              <article class="list-card reveal" style="--reveal-delay: 0.18s;">
+                <strong>Platform-specific formatting</strong>
+                <p>Each output is shaped for the tone, structure, and cadence that feels native to that channel.</p>
+              </article>
+
+              <article class="list-card reveal" style="--reveal-delay: 0.28s;">
+                <strong>Ready-to-edit drafts</strong>
+                <p>Start with a strong first version, make a few edits, and move from idea to publish much faster.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Product Flow</span>
+            <h2 class="reveal" style="--reveal-delay: 0.1s;">How it works</h2>
+          </div>
+
+          <div class="flow-wrap reveal">
+            <div class="flow-grid">
+              <article class="flow-card reveal" style="--reveal-delay: 0.08s;">
+                <span class="flow-label">Input</span>
+                <h3>Your Content</h3>
+                <div class="lines">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                  <div class="line mid"></div>
+                  <div class="line short"></div>
+                </div>
+                <p class="flow-note">Start with a raw idea, draft, transcript, or note.</p>
+              </article>
+
+              <div class="processing" aria-label="Processing">
+                <div class="processing-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <p>Processing</p>
+              </div>
+
+              <div class="output-stack">
+                <article class="output-card reveal" style="--reveal-delay: 0.12s;">
+                  <strong>Twitter Thread <span>Output</span></strong>
+                  <div class="lines">
+                    <div class="line mid"></div>
+                    <div class="line"></div>
+                    <div class="line short"></div>
+                  </div>
+                </article>
+
+                <article class="output-card reveal" style="--reveal-delay: 0.24s;">
+                  <strong>LinkedIn Post <span>Output</span></strong>
+                  <div class="lines">
+                    <div class="line"></div>
+                    <div class="line mid"></div>
+                    <div class="line short"></div>
+                  </div>
+                </article>
+
+                <article class="output-card reveal" style="--reveal-delay: 0.36s;">
+                  <strong>Reddit Post <span>Output</span></strong>
+                  <div class="lines">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line short"></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section demo-section" id="demo">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Demo</span>
+            <h2 class="reveal" style="--reveal-delay: 0.1s;">See Stak in action</h2>
+            <p class="reveal" style="--reveal-delay: 0.2s;">Watch how one piece of content turns into multiple platform-ready posts</p>
+          </div>
+
+          <div class="demo-wrap">
+            <div class="demo-video-frame reveal" style="--reveal-delay: 0.12s;">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0"
+                title="Stak demo video placeholder"
+                loading="lazy"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+              <div class="demo-overlay" aria-hidden="true">
+                <div class="demo-play">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 6.5v11l9-5.5-9-5.5z"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row reveal" style="--reveal-delay: 0.22s;">
+              <a href="https://app.stak.co.in/" class="btn btn-primary">Try it yourself</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal" id="why-stak">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Why Stak</span>
+            <h2>Why creators use Stak</h2>
+          </div>
+
+          <div class="why-grid">
+            <article class="list-card reveal" style="--reveal-delay: 0s;">
+              <span class="why-index">01</span>
+              <strong>Write once, publish everywhere</strong>
+              <p>Reduce duplication and get more mileage out of every idea you already have.</p>
+            </article>
+
+            <article class="list-card reveal" style="--reveal-delay: 0.1s;">
+              <span class="why-index">02</span>
+              <strong>Save hours every day</strong>
+              <p>Use your time on better ideas, editing, and publishing instead of repetitive rewrites.</p>
+            </article>
+
+            <article class="list-card reveal" style="--reveal-delay: 0.2s;">
+              <span class="why-index">03</span>
+              <strong>Built for real workflows</strong>
+              <p>Simple enough to move quickly, structured enough to support an actual publishing routine.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pricing-section" id="pricing">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Pricing</span>
+            <h2 class="reveal" style="--reveal-delay: 0.1s;">Simple pricing. No surprises.</h2>
+          </div>
+
+          <div class="pricing-wrap">
+            <article class="pricing-card reveal" style="--reveal-delay: 0.12s;">
+              <span class="pricing-plan">Plan</span>
+              <h3>Pro Plan</h3>
+              <p class="pricing-amount">$12/month</p>
+              <p class="pricing-yearly">$120/year (save $24)</p>
+
+              <ul class="pricing-list">
+                <li>
+                  <div>
+                    <strong>Unlimited content generation</strong>
+                    <span>create as many posts as they want</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <strong>Multi-platform content</strong>
+                    <span>generate for Twitter, LinkedIn, Blogs</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <strong>Queue system</strong>
+                    <span>create multiple posts at once (batch workflow)</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <strong>Faster processing</strong>
+                    <span>priority speed vs free users</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <strong>Content history</strong>
+                    <span>saved drafts + reuse old content</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <strong>Editing &amp; control</strong>
+                    <span>tweak, refine, manage outputs</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="btn-row">
+                <a href="https://app.stak.co.in/" class="btn btn-primary">Start Free</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section comparison-section" aria-label="Why Stak beats doing it manually">
+        <div class="container">
+          <div class="comparison-wrap">
+            <div class="section-heading reveal">
+              <span class="eyebrow">Comparison</span>
+              <h2 class="reveal" style="--reveal-delay: 0.1s;">Why Stak beats doing it manually</h2>
+            </div>
+
+            <div class="comparison-grid">
+              <article class="comparison-card comparison-card-muted reveal" style="--reveal-delay: 0s;">
+                <span class="comparison-label">Without Stak</span>
+                <h3>Manual content work keeps piling up</h3>
+
+                <ul class="comparison-list">
+                  <li style="--item-delay: 0.05s;">
+                    <span class="comparison-icon" aria-hidden="true">✖</span>
+                    <span>Write content separately for each platform</span>
+                  </li>
+                  <li style="--item-delay: 0.11s;">
+                    <span class="comparison-icon" aria-hidden="true">✖</span>
+                    <span>Repetitive formatting work</span>
+                  </li>
+                  <li style="--item-delay: 0.17s;">
+                    <span class="comparison-icon" aria-hidden="true">✖</span>
+                    <span>Takes hours per post</span>
+                  </li>
+                  <li style="--item-delay: 0.23s;">
+                    <span class="comparison-icon" aria-hidden="true">✖</span>
+                    <span>Hard to stay consistent</span>
+                  </li>
+                  <li style="--item-delay: 0.29s;">
+                    <span class="comparison-icon" aria-hidden="true">✖</span>
+                    <span>No structured workflow</span>
+                  </li>
+                </ul>
+              </article>
+
+              <article class="comparison-card comparison-card-highlight reveal" style="--reveal-delay: 0.15s;">
+                <span class="comparison-label">With Stak</span>
+                <h3>One idea becomes a repeatable publishing system</h3>
+
+                <ul class="comparison-list">
+                  <li style="--item-delay: 0.2s;">
+                    <span class="comparison-icon" aria-hidden="true">✔</span>
+                    <span>One input → multiple outputs</span>
+                  </li>
+                  <li style="--item-delay: 0.26s;">
+                    <span class="comparison-icon" aria-hidden="true">✔</span>
+                    <span>Platform-ready formatting</span>
+                  </li>
+                  <li style="--item-delay: 0.32s;">
+                    <span class="comparison-icon" aria-hidden="true">✔</span>
+                    <span>Generate in seconds</span>
+                  </li>
+                  <li style="--item-delay: 0.38s;">
+                    <span class="comparison-icon" aria-hidden="true">✔</span>
+                    <span>Stay consistent easily</span>
+                  </li>
+                  <li style="--item-delay: 0.44s;">
+                    <span class="comparison-icon" aria-hidden="true">✔</span>
+                    <span>Built-in workflow (queue + history)</span>
+                  </li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-panel reveal">
+            <h2 class="reveal" style="--reveal-delay: 0.1s;">Start creating faster today</h2>
+            <div class="btn-row reveal" style="--reveal-delay: 0.2s;">
+              <a href="https://app.stak.co.in/" class="btn btn-primary">Start Free</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-row">
+          <p>&copy; 2026 Stak. All rights reserved.</p>
+          <div class="footer-links">
             <a href="/privacy/">Privacy</a>
             <a href="/terms/">Terms</a>
             <a href="/refund/">Refund</a>
           </div>
         </div>
-        <div class="footer-center">
-          <a href="#">Docs</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#">Contact</a>
-        </div>
-        <div class="footer-right">
-          <p class="footer-copy">© 2026 Stak. All rights reserved.</p>
-        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  </div>
+  <script>
+    const revealItems = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.18,
+        rootMargin: '0px 0px -8% 0px'
+      });
+
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
+    }
+  </script>
 </body>
 </html>
